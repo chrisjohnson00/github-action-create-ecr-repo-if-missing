@@ -62,6 +62,29 @@ jobs:
 </p>
 </details>
 
+### AWS IAM Requirements
+
+In order for this action to perform correctly, the IAM user must have the following policy actions granted:
+
+```yaml
+        - PolicyName: 'ECR'
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: 'Allow'
+                Action:
+                  - 'ecr:GetAuthorizationToken'
+                Resource:
+                  - '*'
+              - Effect: 'Allow'
+                Action:
+                  - 'ecr:CreateRepository'
+                  - 'ecr:PutLifecyclePolicy'
+                  - 'ecr:SetRepositoryPolicy'
+                Resource:
+                  - !Sub 'arn:aws:ecr:*:${AWS::AccountId}:repository/*'
+```
+
 ## Contributing
 Hopefully this is useful to others at BYU. Feel free to ask me some questions about it, but I make no promises about being able to commit time to support it.
 
